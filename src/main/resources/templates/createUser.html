@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="navbar-brand mb-0 h1">
+        <span  th:text="*{authorizedUser.username + ' with roles: '}"></span>
+        <span th:each="role : ${authorizedUser.roles}">
+                            <span th:text="${role.name + ' '}"></span>
+                        </span>
+    </div>
+    <span align="right">
+                        <a class="navbar-brand" href="/logout">Log out</a>
+            </span>
+</nav>
+
+
+<div class="container-fluid h-100">
+    <div class="row h-100">
+        <div class="col-2 bg-white" style="min-height: 100vh; max-width: 28vh">
+            <div class="list-group list-group-flush mt-4">
+                <a href="#" class="list-group-item list-group-item-action active">
+                    Admin
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
+                    User
+                </a>
+
+            </div>
+        </div>
+
+        <div class="col-10 bg-light ml-3">
+
+            <h1>Admin panel</h1>
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href = "@{/admin}">User table</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" thrf="">New User</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-body align-self-center bg-white" align="center">
+
+                <h2 align="left" class="card-header bg-white mb-4">Add new user</h2>
+
+                <form class="col-3" th:action="@{/save}" th:object="${createNewUser}" method="POST">
+                    <div class="form-group ">
+                        <label class="font-weight-bold" for="inputFirstName">Name</label>
+                        <input class="form-control" type="text" th:field="*{name}" id="inputFirstName"  placeholder="Enter your first name">
+                    </div>
+                    <div class="form-group ">
+                        <label class="font-weight-bold" for="inputFirstName">Last Name</label>
+                        <input class="form-control" type="text" th:field="*{lastName}" id="inputLastName"  placeholder="Enter your last name">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="inputPassword">Email</label>
+                        <input class="form-control" type="text" th:field="*{email}" id="inputEmail"  placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="inputAge">Age</label>
+                        <input class="form-control" type="text" th:field="*{age}" id="inputAge"  placeholder="Enter your age">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="inputPassword">Password</label>
+                        <input class="form-control" type="text" th:field="*{password}" id="inputPassword"  placeholder="Enter your password">
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="inputPassword">Role</label>
+                        <select multiple id="inputRole"  class="form-control" name="admin" th:size="${roles.size()}">
+                            <option th:each="role: ${roles}" th:value="${role.id - 1}" th:text="${role.name}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Add new user</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

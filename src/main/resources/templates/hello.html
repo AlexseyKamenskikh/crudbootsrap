@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body class="bg-light">
+
+    <nav class = "navbar navbar-dark bg-dark">
+        <div class = "navbar-brand mb-0 h1">
+            <span th:text="*{authorizedUser.email + 'with roles: '}"></span>
+            <span th:each="role : ${authorizedUser.roles}">
+                    <span th:text="${role.name + ' '}"></span>
+                </span>
+        </div>
+
+        <div class = "nav navbar-nav navbar-right">
+                <span>
+                    <a class="navbar-brand" href="/logout">Log out</a>
+                </span>
+        </div>
+    </nav>
+
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-2 bg-white" style="min-height: 100vh; max-width: 28vh">
+                <div class="list-group list-group-flush mt-4">
+                    <a href="/admin" class="list-group-item list-group-item-action" th:if="${authorizedUser.admin}">
+                        Admin
+                    </a>
+                    <a href="/hello" class="list-group-item list-group-item-action active">
+                        User
+                    </a>
+
+                </div>
+            </div>
+
+
+            <div class="col-10 bg-light ml-3">
+
+                <h1>User information-page</h1>
+
+                <div class="card">
+                    <h5 class="card-header">About user</h5>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col"> ID </th>
+                                <th scope="col"> Name </th>
+                                <th scope="col"> Last Name </th>
+                                <th scope="col"> Age </th>
+                                <th scope="col"> Email </th>
+                                <th scope="col"> Role </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <td><span th:text="${authorizedUser.id}"> </span></td>
+                            <td><span th:text="${authorizedUser.name}"> </span></td>
+                            <td><span th:text="${authorizedUser.lastName}"> </span></td>
+                            <td><span th:text="${authorizedUser.age}"> </span></td>
+                            <td><span th:text="${authorizedUser.email}"> </span></td>
+                            <td>
+                                <div th:if="${authorizedUser.roles != null}">
+                                    <div th:each="role : ${authorizedUser.roles}">
+                                        <span th:text="${role.name}"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

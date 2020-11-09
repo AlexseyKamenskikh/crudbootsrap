@@ -34,9 +34,10 @@ public class Homepage {
     }
 
     @GetMapping(value = {"/", "/hello"})
-    public String hello(ModelMap modelMap, @RequestParam long id) {
+    public String hello(ModelMap modelMap) {
+//    public String hello(ModelMap modelMap, @RequestParam long id) {
 
-        modelMap.addAttribute("message", "Hello" + userServiceImpl.findById(id).getName());
+        modelMap.addAttribute("message", "Hello war");
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
